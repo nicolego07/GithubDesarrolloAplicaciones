@@ -1,2 +1,2 @@
-# SC_302_Documentacion_SI_Grupo1
+# GithubDesarrolloAplicaciones
 Repositorio del grupo#1
