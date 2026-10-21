@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class CategoriaService {
@@ -16,6 +17,7 @@ public class CategoriaService {
 
 public CategoriaService(
         CategoriaRepository categoriaRepository,
+        @Autowired(required = false)
         FirebaseStorageService firebaseStorageService) {
 
     this.categoriaRepository = categoriaRepository;
@@ -51,7 +53,9 @@ public void save(Categoria categoria, MultipartFile imagenFile) {
     categoria = categoriaRepository.save(categoria);
 
     // Si el usuario seleccionó una imagen nueva
-    if (imagenFile != null && !imagenFile.isEmpty()) {
+    if (firebaseStorageService != null
+        && imagenFile != null
+        && !imagenFile.isEmpty())  {
         try {
             String rutaImagen = firebaseStorageService.uploadImage(
                     imagenFile,

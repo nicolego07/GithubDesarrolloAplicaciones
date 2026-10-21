@@ -13,9 +13,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 @Service
-@RequiredArgsConstructor
+@ConditionalOnProperty(
+    name = "firebase.enabled",
+    havingValue = "true"
+)
 public class FirebaseStorageService {
 
     @Value("${firebase.bucket.name}")
@@ -24,6 +28,9 @@ public class FirebaseStorageService {
     private String storagePath;
     // Aquí se manejaría la inyección del cliente de Storage como un bean
     private final Storage storage;
+    public FirebaseStorageService(Storage storage) {
+    this.storage = storage;
+}
 
     //Sube un archivo de imagen al almacenamiento de Firebase.
     public String uploadImage(MultipartFile localFile, String folder, Integer id) throws IOException {

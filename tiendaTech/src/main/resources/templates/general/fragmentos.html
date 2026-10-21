@@ -82,3 +82,95 @@
 <footer th:fragment="footer" class="p-2 mt-5 bg-info text-white">
     <p class="lead text-center">[[#{plantilla.derechos}]] &COPY;</p>
 </footer>
+<!-- Fragmento #4: Confirmación de eliminación -->
+<div th:fragment="confirmarEliminar(urlEliminar, nombreId)">
+
+    <div class="modal fade" id="confirmModal"
+         tabindex="-1" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">
+                        [[#{accion.confirmar}]]
+                    </h5>
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal"></button>
+                </div>
+
+                <form th:action="${urlEliminar}" method="post">
+
+                    <div class="modal-body">
+                        <p>
+                            [[#{accion.confirmar.texto1}]]
+                            <strong id="confirmDescripcion"></strong>?
+                        </p>
+                        <p>[[#{accion.confirmar.texto2}]]</p>
+
+                        <input type="hidden"
+                               id="confirmId"
+                               th:name="${nombreId}"/>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal">
+                            [[#{accion.cerrar}]]
+                        </button>
+
+                        <button type="submit"
+                                class="btn btn-danger">
+                            [[#{accion.eliminar}]]
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fragmento #5: Notificaciones -->
+<div th:fragment="mostrarToast"
+     class="toast-container position-fixed bottom-0 end-0 p-3"
+     style="z-index: 1100;">
+
+    <!-- Mensaje de éxito -->
+    <div th:if="${todoOk != null}"
+         class="toast show text-bg-success"
+         role="alert">
+
+        <div class="d-flex">
+            <div class="toast-body">
+                [[${todoOk}]]
+            </div>
+
+            <button type="button"
+                    class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast"
+                    aria-label="Cerrar">
+            </button>
+        </div>
+    </div>
+
+    <!-- Mensaje de error -->
+    <div th:if="${error != null}"
+         class="toast show text-bg-danger"
+         role="alert">
+
+        <div class="d-flex">
+            <div class="toast-body">
+                [[${error}]]
+            </div>
+
+            <button type="button"
+                    class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast"
+                    aria-label="Cerrar">
+            </button>
+        </div>
+    </div>
+
+</div>

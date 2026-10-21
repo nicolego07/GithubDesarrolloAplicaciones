@@ -20,12 +20,15 @@ function mostrarImagen(input, previewId = 'blah') {
 document.addEventListener('DOMContentLoaded', function () {
     const confirmModal = document.getElementById('confirmModal');
     if (!confirmModal) {
-        return;
+        return;S
     }
     confirmModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
-        document.getElementById('modalId').value = button.getAttribute('data-bs-id');
-        document.getElementById('modalDescripcion').textContent = button.getAttribute('data-bs-descripcion');
+document.getElementById('confirmId').value =
+    button.getAttribute('data-bs-id');
+
+document.getElementById('confirmDescripcion').textContent =
+    button.getAttribute('data-bs-descripciFon');
     });
 });
 
